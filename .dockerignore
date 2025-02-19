@@ -1,0 +1,17 @@
+# Gradle
+.gradle
+
+# IDEA
+.idea
+
+# Helm
+.helm
+
+# Git
+.gitattributes
+.gitignore
+
+# Others
+AUTHORS.md
+CHANGELOG.md
+README.md
