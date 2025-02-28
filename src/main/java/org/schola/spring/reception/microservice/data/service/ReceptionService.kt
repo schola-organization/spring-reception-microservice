@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.CachePut
 import org.springframework.cache.annotation.Cacheable
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
@@ -24,8 +25,10 @@ class ReceptionService {
     @Cacheable(value = [RECEPTION_KEY], key = "#id")
     fun get(id: String): Reception = mongo.findById(id).orElse(null)
 
+    fun getWithUser(name: String): List<Reception> = mongo.findByUser(name)
+
     @Cacheable(value = [RECEPTION_KEY])
-    fun getAll(pageable: Pageable): List<Reception> = mongo.findAll(pageable).content
+    fun getAll(pageable: Pageable): Page<Reception> = mongo.findAll(pageable)
 
     @CacheEvict(value = [RECEPTION_KEY], allEntries = true)
     fun delete(id: String) = mongo.deleteById(id)
